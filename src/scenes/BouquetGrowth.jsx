@@ -514,7 +514,7 @@ export default function BouquetGrowth() {
             flexDirection: "column",
             alignItems: "center",
             textAlign: "center",
-            width: "90%",
+            width: "100%",
           }}
         >
           <span style={{ fontSize: "clamp(1.8rem, 6vw, 2.8rem)", fontWeight: "700", whiteSpace: "nowrap" }}>Esto es para vos 😊</span>
@@ -535,16 +535,17 @@ export default function BouquetGrowth() {
             flexDirection: "column",
             alignItems: "center",
             gap: "0.5rem",
-            width: "95%",
+            width: "100%",
           }}
         >
           <span style={{
-            fontSize: "clamp(0.7rem, 3.2vw, 0.85rem)",
+            fontSize: "clamp(0.6rem, 3vw, 0.85rem)",
             color: "#825A36",
             fontFamily: "system-ui, -apple-system, sans-serif",
             fontWeight: "500",
             opacity: 0.8,
-            whiteSpace: "nowrap"
+            whiteSpace: "nowrap",
+            textAlign: "center"
           }}>
             (pueden ser black baccaras si preferís)
           </span>
@@ -596,11 +597,11 @@ export default function BouquetGrowth() {
             alignItems: "center",
             gap: "0.3rem",
             textShadow: "0px 2px 10px rgba(255,255,255,0.8)",
-            width: "90%",
+            width: "100%",
             textAlign: "center"
           }}
         >
-          <span style={{ whiteSpace: "nowrap", fontSize: "clamp(0.8rem, 3.5vw, 0.9rem)" }}>Seguí bajando un poquito más</span>
+          <span style={{ whiteSpace: "nowrap", fontSize: "clamp(0.7rem, 3.5vw, 0.9rem)" }}>Seguí bajando un poquito más</span>
         </div>
 
         <div 
@@ -612,7 +613,7 @@ export default function BouquetGrowth() {
             transform: "translateX(-50%)",
             color: "#6B4A2B",
             fontFamily: "system-ui, -apple-system, sans-serif",
-            width: "95%",
+            width: "100%",
             textShadow: "0px 2px 15px rgba(255,255,255,0.8)",
             opacity: 0,
             pointerEvents: "none",
@@ -621,7 +622,7 @@ export default function BouquetGrowth() {
             lineHeight: "1.4"
           }}
         >
-          <span style={{ fontSize: "clamp(1rem, 3.8vw, 1.6rem)", fontWeight: "600", whiteSpace: "nowrap" }}>
+          <span style={{ fontSize: "clamp(0.9rem, 3.8vw, 1.6rem)", fontWeight: "600", whiteSpace: "nowrap" }}>
             Podés guardar una foto si querés
           </span>
         </div>
