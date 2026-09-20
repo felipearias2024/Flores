@@ -1,0 +1,114 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+body {
+  overflow-x: hidden;
+  background: #111;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+.hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100dvh;
+  height: 100vh; /* fallback */
+  width: 100%;
+  overflow: hidden;
+  padding: max(1.5rem, env(safe-area-inset-top)) max(1rem, env(safe-area-inset-right))
+    max(1.5rem, env(safe-area-inset-bottom)) max(1rem, env(safe-area-inset-left));
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 30% 30%, #ff9ecf 0%, transparent 55%),
+    radial-gradient(circle at 70% 60%, #ffd27a 0%, transparent 55%),
+    radial-gradient(circle at 50% 90%, #9ad9ff 0%, transparent 55%), #1a1a1a;
+  filter: blur(40px);
+  transform: scale(1.2); /* evita bordes nítidos por el blur */
+}
+
+.hero-title {
+  position: relative;
+  z-index: 1;
+  color: #fff;
+  font-size: clamp(2rem, 9vw, 3.5rem);
+  font-weight: 600;
+  text-align: center;
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.35);
+  margin: 0;
+}
+
+.scroll-hint {
+  position: absolute;
+  z-index: 1;
+  bottom: max(1.5rem, env(safe-area-inset-bottom));
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  color: #fff;
+  opacity: 0.85;
+}
+
+.scroll-hint span:first-child {
+  font-size: clamp(0.85rem, 3.5vw, 1rem);
+  letter-spacing: 0.05em;
+  text-transform: lowercase;
+}
+
+.scroll-arrow {
+  font-size: clamp(1.3rem, 5vw, 1.6rem);
+  animation: rebote 1.6s ease-in-out infinite;
+}
+
+@keyframes rebote {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(8px);
+  }
+}
+
+.bouquet-wrapper {
+  position: relative;
+  height: 550vh;
+}
+
+.bouquet-sticky {
+  position: sticky;
+  top: 0;
+  height: 100dvh;
+  height: 100vh;
+  overflow: hidden;
+  background: linear-gradient(180deg, #FDFBF7 0%, #F5EBE0 65%, #EAD6C3 100%);
+}
+
+.bouquet-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.bouquet-warm-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 70%, #ffb877 0%, transparent 70%);
+  opacity: 0;
+  pointer-events: none;
+}
