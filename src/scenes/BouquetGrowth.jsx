@@ -219,7 +219,6 @@ export default function BouquetGrowth() {
 
       const camT = easeOutCubic(mapRange(baseP, 0.88, 0.95));
       if (R.scene) {
-        // Redujimos el empuje vertical de 110 a 60 para que la escena quede más alta en pantalla
         const yShift = lerp(0, 60, camT) - lerp(0, 60, vaseP);
         R.scene.setAttribute("transform", `translate(160, 320) scale(${lerp(1, 0.75, camT)}) translate(-160, -320) translate(0, ${yShift})`);
       }
@@ -507,7 +506,6 @@ export default function BouquetGrowth() {
             transform: "translateX(-50%)",
             color: "#6B4A2B",
             fontFamily: "system-ui, -apple-system, sans-serif",
-            whiteSpace: "nowrap",
             textShadow: "0px 2px 15px rgba(255,255,255,0.8)",
             opacity: 0,
             pointerEvents: "none",
@@ -515,11 +513,12 @@ export default function BouquetGrowth() {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            textAlign: "center"
+            textAlign: "center",
+            width: "90%",
           }}
         >
-          <span style={{ fontSize: "clamp(1.8rem, 6vw, 2.8rem)", fontWeight: "700" }}>Esto es para vos 😊</span>
-          <span style={{ fontSize: "clamp(1.1rem, 3.5vw, 1.6rem)", fontWeight: "500", marginTop: "4px" }}>Espero que te gusten</span>
+          <span style={{ fontSize: "clamp(1.8rem, 6vw, 2.8rem)", fontWeight: "700", whiteSpace: "nowrap" }}>Esto es para vos 😊</span>
+          <span style={{ fontSize: "clamp(1.1rem, 3.5vw, 1.6rem)", fontWeight: "500", marginTop: "4px", whiteSpace: "nowrap" }}>Espero que te gusten</span>
         </div>
 
         <div
@@ -535,15 +534,17 @@ export default function BouquetGrowth() {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            gap: "0.5rem"
+            gap: "0.5rem",
+            width: "95%",
           }}
         >
           <span style={{
-            fontSize: "0.85rem",
+            fontSize: "clamp(0.7rem, 3.2vw, 0.85rem)",
             color: "#825A36",
             fontFamily: "system-ui, -apple-system, sans-serif",
             fontWeight: "500",
-            opacity: 0.8
+            opacity: 0.8,
+            whiteSpace: "nowrap"
           }}>
             (pueden ser black baccaras si preferís)
           </span>
@@ -586,7 +587,6 @@ export default function BouquetGrowth() {
             transform: "translateX(-50%)",
             color: "#825A36",
             fontFamily: "system-ui, -apple-system, sans-serif",
-            fontSize: "0.9rem",
             fontWeight: "500",
             opacity: 0,
             pointerEvents: "none",
@@ -595,10 +595,12 @@ export default function BouquetGrowth() {
             flexDirection: "column",
             alignItems: "center",
             gap: "0.3rem",
-            textShadow: "0px 2px 10px rgba(255,255,255,0.8)"
+            textShadow: "0px 2px 10px rgba(255,255,255,0.8)",
+            width: "90%",
+            textAlign: "center"
           }}
         >
-          <span>Seguí bajando un poquito más</span>
+          <span style={{ whiteSpace: "nowrap", fontSize: "clamp(0.8rem, 3.5vw, 0.9rem)" }}>Seguí bajando un poquito más</span>
         </div>
 
         <div 
@@ -610,8 +612,7 @@ export default function BouquetGrowth() {
             transform: "translateX(-50%)",
             color: "#6B4A2B",
             fontFamily: "system-ui, -apple-system, sans-serif",
-            width: "90%",
-            maxWidth: "400px",
+            width: "95%",
             textShadow: "0px 2px 15px rgba(255,255,255,0.8)",
             opacity: 0,
             pointerEvents: "none",
@@ -620,7 +621,7 @@ export default function BouquetGrowth() {
             lineHeight: "1.4"
           }}
         >
-          <span style={{ fontSize: "clamp(1.1rem, 4vw, 1.6rem)", fontWeight: "600" }}>
+          <span style={{ fontSize: "clamp(1rem, 3.8vw, 1.6rem)", fontWeight: "600", whiteSpace: "nowrap" }}>
             Podés guardar una foto si querés
           </span>
         </div>
@@ -649,7 +650,8 @@ export default function BouquetGrowth() {
               fontWeight: "600",
               cursor: "pointer",
               boxShadow: "0 4px 15px rgba(107, 74, 43, 0.3)",
-              fontFamily: "system-ui, -apple-system, sans-serif"
+              fontFamily: "system-ui, -apple-system, sans-serif",
+              whiteSpace: "nowrap"
             }}
           >
             Guardar recuerdo
