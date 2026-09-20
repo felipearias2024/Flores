@@ -229,7 +229,6 @@ export default function BouquetGrowth() {
 
       const uiFadeOut = mapRange(vaseP, 0, 0.2);
       
-      // OPTIMIZACIÓN GPU: Reemplazamos translate por translate3d para los elementos de UI
       if (R.finalText) {
         const textT = easeOutCubic(mapRange(baseP, 0.92, 1));
         const textOp = clamp01(textT - uiFadeOut);
@@ -290,8 +289,12 @@ export default function BouquetGrowth() {
     const svg = document.querySelector('.bouquet-svg');
     if (!svg) return;
 
+    const svgClone = svg.cloneNode(true);
+    svgClone.setAttribute("width", "1080");
+    svgClone.setAttribute("height", "2160");
+
     const serializer = new XMLSerializer();
-    let source = serializer.serializeToString(svg);
+    let source = serializer.serializeToString(svgClone);
 
     if (!source.match(/^<svg[^>]+xmlns="http\:\/\/www\.w3\.org\/2000\/svg"/)) {
       source = source.replace(/^<svg/, '<svg xmlns="http://www.w3.org/2000/svg"');
@@ -304,6 +307,9 @@ export default function BouquetGrowth() {
     canvas.width = 1080;
     canvas.height = 2160;
     const ctx = canvas.getContext("2d");
+
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = "high";
 
     const img = new Image();
     img.onload = () => {
@@ -337,7 +343,9 @@ export default function BouquetGrowth() {
 
         <svg className="bouquet-svg" viewBox="0 0 320 640" preserveAspectRatio="xMidYMax meet" style={{ overflow: "visible", position: "relative", zIndex: 1, willChange: "transform" }}>
           <defs>
-            {/* Se removió el filtro drop-shadow por problemas severos de lag en móviles */}
+            <filter id="drop-shadow" x="-20%" y="-20%" width="140%" height="140%">
+              <feDropShadow dx="0" dy="2" stdDeviation="3" floodOpacity="0.3" />
+            </filter>
             
             <radialGradient id="rose-dark" cx="50%" cy="50%" r="50%">
               <stop offset="0%" stopColor="#ECA214"/>
