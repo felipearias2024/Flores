@@ -229,35 +229,36 @@ export default function BouquetGrowth() {
 
       const uiFadeOut = mapRange(vaseP, 0, 0.2);
       
+      // OPTIMIZACIÓN GPU: Reemplazamos translate por translate3d para los elementos de UI
       if (R.finalText) {
         const textT = easeOutCubic(mapRange(baseP, 0.92, 1));
         const textOp = clamp01(textT - uiFadeOut);
         R.finalText.style.opacity = String(textOp);
-        R.finalText.style.transform = `translate(-50%, ${lerp(20, 0, textT)}px)`;
+        R.finalText.style.transform = `translate3d(-50%, ${lerp(20, 0, textT)}px, 0)`;
         
         if (R.selector) {
           R.selector.style.opacity = String(textOp);
-          R.selector.style.transform = `translate(-50%, ${lerp(20, 0, textT)}px)`;
+          R.selector.style.transform = `translate3d(-50%, ${lerp(20, 0, textT)}px, 0)`;
           R.selector.style.pointerEvents = (textT > 0.95 && uiFadeOut === 0) ? "auto" : "none";
         }
         
         if (R.scrollHint) {
           R.scrollHint.style.opacity = String(textOp);
-          R.scrollHint.style.transform = `translate(-50%, ${lerp(20, 0, textT)}px)`;
+          R.scrollHint.style.transform = `translate3d(-50%, ${lerp(20, 0, textT)}px, 0)`;
         }
       }
 
       if (R.downloadBtn) {
         const btnIn = easeOutCubic(mapRange(vaseP, 0.6, 1));
         R.downloadBtn.style.opacity = String(btnIn);
-        R.downloadBtn.style.transform = `translate(-50%, ${lerp(20, 0, btnIn)}px)`;
+        R.downloadBtn.style.transform = `translate3d(-50%, ${lerp(20, 0, btnIn)}px, 0)`;
         R.downloadBtn.style.pointerEvents = btnIn > 0.95 ? "auto" : "none";
       }
 
       if (R.vaseText) {
         const textIn = easeOutCubic(mapRange(vaseP, 0.6, 1));
         R.vaseText.style.opacity = String(textIn);
-        R.vaseText.style.transform = `translate(-50%, ${lerp(20, 0, textIn)}px)`;
+        R.vaseText.style.transform = `translate3d(-50%, ${lerp(20, 0, textIn)}px, 0)`;
       }
     }
 
@@ -334,11 +335,9 @@ export default function BouquetGrowth() {
         
         <div ref={(el) => (R.warmOverlay = el)} className="bouquet-warm-overlay" style={{ zIndex: 0 }} />
 
-        <svg className="bouquet-svg" viewBox="0 0 320 640" preserveAspectRatio="xMidYMax meet" style={{ overflow: "visible", position: "relative", zIndex: 1 }}>
+        <svg className="bouquet-svg" viewBox="0 0 320 640" preserveAspectRatio="xMidYMax meet" style={{ overflow: "visible", position: "relative", zIndex: 1, willChange: "transform" }}>
           <defs>
-            <filter id="drop-shadow" x="-20%" y="-20%" width="140%" height="140%">
-              <feDropShadow dx="0" dy="2" stdDeviation="3" floodOpacity="0.3" />
-            </filter>
+            {/* Se removió el filtro drop-shadow por problemas severos de lag en móviles */}
             
             <radialGradient id="rose-dark" cx="50%" cy="50%" r="50%">
               <stop offset="0%" stopColor="#ECA214"/>
@@ -392,7 +391,7 @@ export default function BouquetGrowth() {
             </linearGradient>
           </defs>
 
-          <g ref={(el) => (R.scene = el)}>
+          <g ref={(el) => (R.scene = el)} style={{ willChange: "transform" }}>
             <g ref={(el) => (R.groundGroup = el)}>
               <path ref={(el) => (R.ground = el)} d="M-2000,580 L0,580 Q160,545 320,580 L2320,580 L2320,640 L-2000,640 Z" fill="#D4B48F" />
               <ellipse ref={(el) => (R.wetPatch = el)} cx="160" cy="580" rx="140" ry="18" fill="#4A3420" opacity="0" />
@@ -404,7 +403,7 @@ export default function BouquetGrowth() {
               ))}
             </g>
 
-            <g ref={(el) => (R.can = el)} transform="translate(400, -100)">
+            <g ref={(el) => (R.can = el)} transform="translate(400, -100)" style={{ willChange: "transform" }}>
               <path d="M -15,-10 C -50,-30 -40,40 -15,30" stroke="url(#copper)" strokeWidth="6" fill="none" strokeLinecap="round" />
               <path d="M -25,-20 L 25,-20 Q 30,10 25,40 L -25,40 Q -30,10 -25,-20 Z" fill="url(#copper)" />
               <ellipse cx="0" cy="-20" rx="25" ry="6" fill="#75350A" stroke="#F5B47D" strokeWidth="1.5" />
@@ -468,7 +467,7 @@ export default function BouquetGrowth() {
                     <ellipse cx="12" cy="8" rx="10" ry="5" fill="#587A5A" transform="rotate(25 12 8)" />
                   </g>
                   <ellipse ref={(el) => (budRefs[i] = el)} cx={s.x} cy={s.topY + 6} rx="6" ry="10" fill="#85A687" opacity="0" />
-                  <g ref={(el) => (flowerRefs[i] = el)} opacity="0">
+                  <g ref={(el) => (flowerRefs[i] = el)} opacity="0" style={{ willChange: "transform, opacity" }}>
                     <FlowerVariant variant={actualVariant} />
                   </g>
                 </g>
@@ -481,13 +480,13 @@ export default function BouquetGrowth() {
               <path d="M 135,470 C 135,570 142,610 150,610" stroke="rgba(255, 255, 255, 0.7)" strokeWidth="3" strokeLinecap="round" fill="none" />
             </g>
 
-            <g ref={(el) => (R.paperFront = el)} opacity="0">
-              <path ref={(el) => (R.paperFrontPath = el)} d="" fill="url(#paper-translucent)" filter="url(#drop-shadow)" />
+            <g ref={(el) => (R.paperFront = el)} opacity="0" style={{ willChange: "transform, opacity" }}>
+              <path ref={(el) => (R.paperFrontPath = el)} d="" fill="url(#paper-translucent)" />
               <path ref={(el) => (R.paperFold1 = el)} d="" fill="rgba(255, 255, 255, 0.4)" />
               <path ref={(el) => (R.paperFold2 = el)} d="" fill="rgba(255, 255, 255, 0.2)" />
             </g>
 
-            <g ref={(el) => (R.ribbon = el)} opacity="0" filter="url(#drop-shadow)">
+            <g ref={(el) => (R.ribbon = el)} opacity="0" style={{ willChange: "transform, opacity" }}>
               <path d="M 160,485 Q 140,550 135,580 Q 150,560 160,490" fill={ribbonCol.base} />
               <path d="M 160,485 Q 180,560 190,590 Q 170,550 160,490" fill={ribbonCol.shadow} />
               <path d="M 160,480 C 120,450 120,490 160,485 Z" fill={ribbonCol.main} />
@@ -515,6 +514,7 @@ export default function BouquetGrowth() {
             alignItems: "center",
             textAlign: "center",
             width: "100%",
+            willChange: "transform, opacity"
           }}
         >
           <span style={{ fontSize: "clamp(1.8rem, 6vw, 2.8rem)", fontWeight: "700", whiteSpace: "nowrap" }}>Esto es para vos 😊</span>
@@ -536,6 +536,7 @@ export default function BouquetGrowth() {
             alignItems: "center",
             gap: "0.5rem",
             width: "100%",
+            willChange: "transform, opacity"
           }}
         >
           <span style={{
@@ -598,7 +599,8 @@ export default function BouquetGrowth() {
             gap: "0.3rem",
             textShadow: "0px 2px 10px rgba(255,255,255,0.8)",
             width: "100%",
-            textAlign: "center"
+            textAlign: "center",
+            willChange: "transform, opacity"
           }}
         >
           <span style={{ whiteSpace: "nowrap", fontSize: "clamp(0.7rem, 3.5vw, 0.9rem)" }}>Seguí bajando un poquito más</span>
@@ -619,7 +621,8 @@ export default function BouquetGrowth() {
             pointerEvents: "none",
             zIndex: 10,
             textAlign: "center",
-            lineHeight: "1.4"
+            lineHeight: "1.4",
+            willChange: "transform, opacity"
           }}
         >
           <span style={{ fontSize: "clamp(0.9rem, 3.8vw, 1.6rem)", fontWeight: "600", whiteSpace: "nowrap" }}>
@@ -637,6 +640,7 @@ export default function BouquetGrowth() {
             opacity: 0,
             pointerEvents: "none",
             zIndex: 10,
+            willChange: "transform, opacity"
           }}
         >
           <button
